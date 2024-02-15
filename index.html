@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Berlin Warrior</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        --form-height: 6rem;
+        --form-content-size: 2rem;
+      }
+      body,
+      canvas {
+        background-color: black;
+      }
+
+      canvas {
+        margin-top: 1rem;
+        width: 100%;
+        object-fit: contain;
+      }
+      img {
+        display: none;
+      }
+
+      form {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: var(--form-content-size);
+        height: var(--form-content-size);
+      }
+
+      form * {
+        font-size: var(--form-content-size);
+      }
+
+      input[type="checkbox"] {
+        width: var(--form-content-size);
+        height: calc(100% - var(--form-height));
+      }
+      main {
+        display: flex;
+        height: calc(100% - var(--form-height));
+      }
+      label {
+        color: red;
+      }
+    </style>
+    <script type="module" src="./src/index.js"></script>
+  </head>
+  <body>
+    <form>
+      <div>
+        <input id="ken" type="checkbox" name="fighter" vallue="ken" />
+        <label for="ken">Ken</label>
+      </div>
+      <div>
+        <input id="ryu" type="checkbox" name="fighter" vallue="ryu" />
+        <label for="ryu">Ryu</label>
+      </div>
+      <select id="state-dropdown" name="state"></select>
+      <button type="submit">Transition!</button>
+    </form>
+    <main>
+      <canvas width="384" height="224"></canvas>
+    </main>
+    <img src="./images/ryu-sprites.png" alt="ryu" />
+    <img src="./images/ken-sprites.png" alt="ken" />
+    <img src="./images/background.png" alt="background" />
+  </body>
+</html>
