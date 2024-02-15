@@ -16,6 +16,21 @@ function populateMoveDropdown() {
   });
 }
 
+function handleFormSubmit(event, fighters) {
+  event.preventDefault();
+  const selectedCheckboxes = Array.from(
+    event.target.querySelectorAll("input:checked")
+  ).map((checkbox) => checkbox.value);
+
+  const options = event.target.querySelector("select");
+
+  fighters.forEach((fighter) => {
+    if (selectedCheckboxes.includes(fighter.name)) {
+      fighter.changeState(options.value);
+    }
+  });
+}
+
 window.addEventListener("load", function () {
   populateMoveDropdown();
 
@@ -23,12 +38,12 @@ window.addEventListener("load", function () {
   const context = canvasEl.getContext("2d");
   context.imageSmoothingEnabled = false;
 
-  const entities = [
-    new Stage(),
+  const fighters = [
     new Ryu(104, STAGE_FLOOR, FighterDirection.RIGHT),
     new Ken(280, STAGE_FLOOR, FighterDirection.LEFT),
-    new FpsCounter(),
   ];
+
+  const entities = [new Stage(), ...fighters, new FpsCounter()];
 
   let frameTime = {
     previous: 0,
@@ -50,5 +65,9 @@ window.addEventListener("load", function () {
       entity.draw(context);
     }
   }
+
+  this.document.addEventListener("submit", (event) =>
+    handleFormSubmit(event, fighters)
+  );
   window.requestAnimationFrame(frame);
 });
